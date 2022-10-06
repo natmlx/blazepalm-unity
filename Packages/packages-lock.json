@@ -8,7 +8,7 @@
       "url": "https://registry.npmjs.com"
     },
     "ai.natml.natdevice": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -17,7 +17,7 @@
       "url": "https://registry.npmjs.com"
     },
     "ai.natml.natml": {
-      "version": "1.0.18",
+      "version": "1.0.19",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -30,16 +30,18 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "ai.natml.natml": "1.0.18"
+        "ai.natml.natml": "1.0.19",
+        "ai.natml.vision.blazepalm.detector": "1.0.0"
       }
     },
     "ai.natml.vision.blazepalm.detector": {
-      "version": "file:/Users/yusuf/Desktop/BlazePalm-Detector/Packages/ai.natml.vision.blazepalm.detector",
-      "depth": 0,
-      "source": "local",
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
       "dependencies": {
-        "ai.natml.natml": "1.0.18"
-      }
+        "ai.natml.natml": "1.0.19"
+      },
+      "url": "https://registry.npmjs.com"
     },
     "com.unity.collab-proxy": {
       "version": "1.15.17",

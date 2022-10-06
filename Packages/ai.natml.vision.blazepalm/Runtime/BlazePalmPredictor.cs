@@ -28,7 +28,7 @@ namespace NatML.Vision {
         /// </summary>
         /// <param name="inputs">Input image.</param>
         /// <returns>Detected hand landmarks.</returns>
-        public unsafe Hand Predict (params MLFeature[] inputs) { // INCOMPLETE
+        public unsafe Hand Predict (params MLFeature[] inputs) {
             // Check
             if (inputs.Length != 1)
                 throw new ArgumentException(@"BlazePalm predictor expects a single feature", nameof(inputs));
@@ -41,10 +41,10 @@ namespace NatML.Vision {
             using var inputFeature = (input as IMLEdgeFeature).Create(inputType);
             using var outputFeatures = model.Predict(inputFeature);
             // Marshal
-            var keypointsFeature = new MLArrayFeature<float>(outputFeatures[0]);    // or 3
+            var keypointsFeature = new MLArrayFeature<float>(outputFeatures[0]);
             var scoreFeature = new MLArrayFeature<float>(outputFeatures[1]);
             var handednessFeature = new MLArrayFeature<float>(outputFeatures[2]);
-            var keypoints3DFeature = new MLArrayFeature<float>(outputFeatures[3]);  // or 0
+            var keypoints3DFeature = new MLArrayFeature<float>(outputFeatures[3]);
             var score = scoreFeature[0];
             var handedness = handednessFeature[0] >= 0.5f ? Handedness.Right : Handedness.Left;
             var keypoints = new Keypoints(keypointsFeature.ToArray(), inputType, Matrix4x4.identity);

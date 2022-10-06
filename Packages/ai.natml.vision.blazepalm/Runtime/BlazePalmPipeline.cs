@@ -26,8 +26,8 @@ namespace NatML.Vision {
         public BlazePalmPipeline (MLModelData detector, MLModelData predictor, int maxDetections = Int32.MaxValue) {
             this.detectorData = detector;
             this.predictorData = predictor;
-            this.detectorModel = detector.Deserialize() as MLEdgeModel;
-            this.predictorModel = predictor.Deserialize() as MLEdgeModel;
+            this.detectorModel = new MLEdgeModel(detector);
+            this.predictorModel = new MLEdgeModel(predictor);
             this.detector = new BlazePalmDetector(detectorModel);
             this.predictor = new BlazePalmPredictor(predictorModel);
             this.maxDetections = maxDetections;
