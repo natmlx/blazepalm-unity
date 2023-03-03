@@ -1,6 +1,6 @@
 /* 
 *   BlazePalm
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright © 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Visualizers {
@@ -10,11 +10,12 @@ namespace NatML.Visualizers {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.UI.Extensions;
-    using Vision;
+    using NatML.VideoKit.UI;
+    using NatML.Vision;
 
     /// <summary>
     /// </summary>
-    [RequireComponent(typeof(RawImage), typeof(AspectRatioFitter))]
+    [RequireComponent(typeof(VideoKitCameraView))]
     public sealed class BlazePalmVisualizer : MonoBehaviour {
 
         #region --Inspector--
@@ -24,16 +25,6 @@ namespace NatML.Visualizers {
 
 
         #region --Client API--
-        /// <summary>
-        /// </summary>
-        public Texture2D image {
-            get => rawImage.texture as Texture2D;
-            set {
-                rawImage.texture = value;
-                aspectFitter.aspectRatio = (float)value.width / value.height;
-            }
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="hands"></param>

@@ -1,12 +1,13 @@
 /* 
 *   BlazePalm
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright © 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Vision {
 
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using UnityEngine;
     using NatML.Features;
     using NatML.Internal;
@@ -18,24 +19,17 @@ namespace NatML.Vision {
 
         #region --Client API--
         /// <summary>
-        /// Create the BlazePalm predictor.
-        /// </summary>
-        /// <param name="model">BlazePalm ML model.</param>
-        public BlazePalmPredictor (MLModel model) => this.model = model as MLEdgeModel;
-
-        /// <summary>
         /// Detect hand landmarks in an image.
         /// </summary>
         /// <param name="inputs">Input image.</param>
         /// <returns>Detected hand landmarks.</returns>
         public unsafe Hand Predict (params MLFeature[] inputs) {
-            // Check
-            if (inputs.Length != 1)
-                throw new ArgumentException(@"BlazePalm predictor expects a single feature", nameof(inputs));
-            // Check type
+            // Preprocess
             var input = inputs[0];
-            if (!MLImageType.FromType(input.type))
-                throw new ArgumentException(@"BlazePalm predictor expects an an array or image feature", nameof(inputs));  
+            if (input is MLImageFeature imageFeature) {
+                (imageFeature.mean, imageFeature.std) = model.normalization;
+                imageFeature.aspectMode = model.aspectMode;
+            }
             // Predict
             var inputType = model.inputs[0] as MLImageType;
             using var inputFeature = (input as IMLEdgeFeature).Create(inputType);
@@ -52,13 +46,32 @@ namespace NatML.Vision {
             var result = new Hand(score, handedness, keypoints, keypoints3D);
             return result;
         }
+
+        /// <summary>
+        /// Dispose the predictor and release resources
+        /// </summary>
+        public void Dispose () => model.Dispose();
+
+        /// <summary>
+        /// Create the BlazePalm predictor.
+        /// </summary>
+        /// <param name="configuration">Edge model configuration.</param>
+        /// <param name="accessKey">NatML access key.</param>
+        public static async Task<BlazePalmPredictor> Create (
+            MLEdgeModel.Configuration configuration = null,
+            string accessKey = null
+        ) {
+            var model = await MLEdgeModel.Create("@natml/blazepalm-landmark", configuration, accessKey);
+            var predictor = new BlazePalmPredictor(model);
+            return predictor;
+        }
         #endregion
 
 
         #region --Operations--
         private readonly MLEdgeModel model;
 
-        void IDisposable.Dispose () { } // Not used
+        private BlazePalmPredictor (MLEdgeModel model) => this.model = model;
         #endregion
     }
 }

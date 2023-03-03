@@ -1,58 +1,44 @@
 /* 
 *   BlazePalm
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright © 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Examples {
 
     using UnityEngine;
-    using NatML.Devices;
-    using NatML.Devices.Outputs;
+    using NatML.VideoKit;
     using NatML.Vision;
     using NatML.Visualizers;
 
-    [MLModelDataEmbed("@natml/blazepalm-detector"), MLModelDataEmbed("@natml/blazepalm-landmark")]
     public sealed class BlazePalmSample : MonoBehaviour {
-        
+
+        [Header(@"Camera")]
+        public VideoKitCameraManager cameraManager;
+
         [Header(@"UI")]
         public BlazePalmVisualizer visualizer;
 
-        private CameraDevice cameraDevice;
-        private TextureOutput previewTextureOutput;
-
         private BlazePalmPipeline pipeline;
 
-        async void Start () {
-            // Request camera permissions
-            var permissionStatus = await MediaDeviceQuery.RequestPermissions<CameraDevice>();
-            if (permissionStatus != PermissionStatus.Authorized) {
-                Debug.Log(@"User did not grant camera permissions");
-                return;
-            }
-            // Get a camera device
-            var query = new MediaDeviceQuery(MediaDeviceCriteria.CameraDevice);
-            cameraDevice = query.current as CameraDevice;
-            // Start the camera preview
-            previewTextureOutput = new TextureOutput();
-            cameraDevice.StartRunning(previewTextureOutput);
-            // Display the preview
-            var previewTexture = await previewTextureOutput;
-            visualizer.image = previewTexture;
+        private async void Start () {
             // Create the BlazePalm predictor
-            var detectorModelData = await MLModelData.FromHub("@natml/blazepalm-detector");
-            var predictorModelData = await MLModelData.FromHub("@natml/blazepalm-landmark");
-            pipeline = new BlazePalmPipeline(detectorModelData, predictorModelData);
+            pipeline = await BlazePalmPipeline.Create();
+            // Listen for camera frames
+            cameraManager.OnCameraFrame.AddListener(OnCameraFrame);
         }
 
-        void Update () {
-            // Check that the predictor has been created
-            if (pipeline == null)
-                return;
+        private void OnCameraFrame (CameraFrame frame) {
             // Predict
-            var hands = pipeline.Predict(previewTextureOutput.texture);
+            var hands = pipeline.Predict(frame);
+            // Visualize
             visualizer.Render(hands);
         }
 
-        void OnDisable () => pipeline?.Dispose();
+        private void OnDisable () {
+            // Stop listening for camera frames
+            cameraManager.OnCameraFrame.RemoveListener(OnCameraFrame);
+            // Dispose the BlazePalm pipeline
+            pipeline?.Dispose();
+        }
     }
 }

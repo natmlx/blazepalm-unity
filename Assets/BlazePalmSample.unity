@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440765, g: 0.49331635, b: 0.57239074, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 231924671}
   - component: {fileID: 231924670}
   - component: {fileID: 231924673}
+  - component: {fileID: 231924675}
+  - component: {fileID: 231924674}
   - component: {fileID: 231924672}
   m_Layer: 5
   m_Name: Preview
@@ -227,6 +229,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 4
   m_AspectRatio: 1
+--- !u!114 &231924674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231924668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145a5a333d6e14379ae91956c0b3373e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraManager: {fileID: 976522267}
+  viewMode: 0
+  focusMode: 0
+  exposureMode: 0
+  zoomMode: 0
+  OnPresent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &231924675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231924668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &284054438
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -663,6 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 976522266}
+  - component: {fileID: 976522267}
   - component: {fileID: 976522265}
   m_Layer: 0
   m_Name: BlazePalmSample
@@ -683,6 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9f4ff1037ce40c3b511a71b9ad6f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 976522267}
   visualizer: {fileID: 231924672}
 --- !u!4 &976522266
 Transform:
@@ -699,6 +737,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976522267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976522264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98622613d505143a9a06b4b11b0a82cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capabilities: 2
+  playOnAwake: 1
+  _facing: 0
+  resolution: 3
+  frameRate: 30
+  focusMode: 0
+  exposureMode: 0
+  OnCameraFrame:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1380056287
 GameObject:
   m_ObjectHideFlags: 0

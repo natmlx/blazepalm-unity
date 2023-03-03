@@ -1,6 +1,6 @@
 /* 
 *   BlazePalm
-*   Copyright (c) 2022 NatML Inc. All Rights Reserved.
+*   Copyright © 2023 NatML Inc. All Rights Reserved.
 */
 
 namespace NatML.Vision {
@@ -131,12 +131,13 @@ namespace NatML.Vision {
 
             #region --Operations--
             internal readonly float[] data;
-            private readonly Vector3 scale;
+            internal readonly MLImageType imageType;
             private readonly Matrix4x4 transformation;
+            private readonly Vector3 scale => new Vector3(1f / imageType.width, 1f / imageType.height, 1f);
 
             internal Keypoints (float[] data, MLImageType imageType, Matrix4x4 transformation) {
                 this.data = data;
-                this.scale = new Vector3(1f / imageType.width, 1f / imageType.height, 1f);
+                this.imageType = imageType;
                 this.transformation = transformation;
             }
 
