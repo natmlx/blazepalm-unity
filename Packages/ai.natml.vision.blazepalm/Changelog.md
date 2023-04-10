@@ -1,3 +1,7 @@
+## 1.0.2
++ Added `BlazePalmPredictor.Tag` constant string for embedding the edge model.
++ Upgraded to NatML 1.1.4.
+
 ## 1.0.1
 + Added `BlazePalmPipeline.Create` static method for creating the pipeline.
 + Added `BlazePalmPredictor.Create` static method for creating the predictor.

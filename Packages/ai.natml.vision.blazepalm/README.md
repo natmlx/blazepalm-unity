@@ -13,7 +13,7 @@ Add the following items to your Unity project's `Packages/manifest.json`:
     }
   ],
   "dependencies": {
-    "ai.natml.vision.blazepalm": "1.0.1"
+    "ai.natml.vision.blazepalm": "1.0.2"
   }
 }
 ```

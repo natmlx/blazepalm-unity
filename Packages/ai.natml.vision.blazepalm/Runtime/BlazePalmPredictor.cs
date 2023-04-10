@@ -19,6 +19,11 @@ namespace NatML.Vision {
 
         #region --Client API--
         /// <summary>
+        /// Predictor tag.
+        /// </summary>
+        public const string Tag = "@natml/blazepalm-landmark";
+
+        /// <summary>
         /// Detect hand landmarks in an image.
         /// </summary>
         /// <param name="inputs">Input image.</param>
@@ -61,7 +66,7 @@ namespace NatML.Vision {
             MLEdgeModel.Configuration configuration = null,
             string accessKey = null
         ) {
-            var model = await MLEdgeModel.Create("@natml/blazepalm-landmark", configuration, accessKey);
+            var model = await MLEdgeModel.Create(Tag, configuration, accessKey);
             var predictor = new BlazePalmPredictor(model);
             return predictor;
         }
