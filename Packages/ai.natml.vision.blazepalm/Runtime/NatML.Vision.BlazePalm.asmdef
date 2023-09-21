@@ -1,7 +1,7 @@
 {
     "name": "NatML.Vision.BlazePalm",
     "references": [
-        "NatML.ML",
+        "NatML.Runtime",
         "NatML.Vision.BlazePalm.Detector"
     ],
     "includePlatforms": [

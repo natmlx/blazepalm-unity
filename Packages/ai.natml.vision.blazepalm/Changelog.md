@@ -1,3 +1,6 @@
+## 1.0.3
++ Upgraded to NatML 1.1.15.
+
 ## 1.0.2
 + Added `BlazePalmPredictor.Tag` constant string for embedding the edge model.
 + Upgraded to NatML 1.1.4.

@@ -10,8 +10,8 @@ namespace NatML.Visualizers {
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.UI.Extensions;
-    using NatML.VideoKit.UI;
     using NatML.Vision;
+    using VideoKit.UI;
 
     /// <summary>
     /// </summary>

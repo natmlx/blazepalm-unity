@@ -9,11 +9,11 @@ Add the following items to your Unity project's `Packages/manifest.json`:
     {
       "name": "NatML",
       "url": "https://registry.npmjs.com",
-      "scopes": ["ai.natml"]
+      "scopes": ["ai.fxn", "ai.natml"]
     }
   ],
   "dependencies": {
-    "ai.natml.vision.blazepalm": "1.0.2"
+    "ai.natml.vision.blazepalm": "1.0.3"
   }
 }
 ```
@@ -35,7 +35,7 @@ BlazePalmPredictor.Hand[] hands = pipeline.Predict(image);
 ___
 
 ## Requirements
-- Unity 2021.2+
+- Unity 2022.3+
 
 ## Quick Tips
 - Join the [NatML community on Discord](https://natml.ai/community).
